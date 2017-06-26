@@ -7,6 +7,14 @@ const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 
 
+const mongoose = require('mongoose');
+                                    // database name
+                                    //    |
+mongoose.connect('mongodb://localhost/ironshop');
+                               //         |
+                               // use ironshop
+
+
 const app = express();
 
 // view engine setup
