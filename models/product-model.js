@@ -14,12 +14,14 @@ const myProductSchema = new Schema({
 // Model
 //    constructor function that allows us to interact with a single collection
 
-const Product = mongoose.model('Product', myProductSchema);
-
+const ProductModel = mongoose.model('Product', myProductSchema);
+//                                      |
+//     ----------------------------------
+//     |
+// 'Product'  ->  'products'  ->  db.products.find()
+//
 // Collection name is automatically determined by Mongoose
-// -------------------------------------------------------
-// Product  ->  products  ->  db.products.find()
 
 
 // 💣 IF YOU FORGET THIS YOU WILL DIE 💣
-module.exports = Product;
+module.exports = ProductModel;
