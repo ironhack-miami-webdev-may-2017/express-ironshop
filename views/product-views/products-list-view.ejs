@@ -5,6 +5,12 @@
     <li>
       <h3> <%= oneProduct.name %> </h3>
       <p> $<%= oneProduct.price %> </p>
+
+                  <!-- req.query.myId -->
+      <a href="/products/details?myId=<%= oneProduct._id %>">
+        View Details
+      </a>
+      <br>
     </li>
   <% }) %>
 </ul>

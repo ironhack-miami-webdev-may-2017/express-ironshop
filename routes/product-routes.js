@@ -60,4 +60,30 @@ router.post('/products', (req, res, next) => {
 });
 
 
+router.get('/products/details', (req, res, next) => {
+//    /products/details?myId=595174b1e7890a86da4f5f0b
+//                       |
+//            req.query.myId
+
+    ProductModel.findById(
+      req.query.myId,            // 1st argument -> the id to find in the DB
+      (err, productFromDb) => {  // 2nd argument -> callback
+          if (err) {
+            // use next() to skip to the ERROR PAGE
+            next(err);
+            return;
+          }
+
+          res.locals.productDetails = productFromDb;
+
+          res.render('product-views/product-details-view.ejs');
+
+          // res.render('product-views/product-details-view.ejs', {
+          //   productDetails: productFromDb
+          // });
+      }
+    );
+});
+
+
 module.exports = router;
