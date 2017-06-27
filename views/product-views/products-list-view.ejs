@@ -6,23 +6,22 @@
       <h3> <%= oneProduct.name %> </h3>
       <p> $<%= oneProduct.price %> </p>
 
-                  <!-- req.query.myId -->
-      <a href="/products/details?myId=<%= oneProduct._id %>">
+      <a href="/products/<%= oneProduct._id %>">
         View Details
       </a>
       <br>
-               <!-- req.query.myId -->
-      <a href="/products/edit?myId=<%= oneProduct._id %>">
+
+      <a href="/products/<%= oneProduct._id %>/edit">
         Edit Product
       </a>
       <br>
-                 <!-- req.query.myId -->
-      <a href="/products/delete?myId=<%= oneProduct._id %>">
+
+      <a href="/products/<%= oneProduct._id %>/delete">
         Delete Link (GET)
       </a>
       <br>
-                                    <!-- req.query.myId -->
-      <form method="post" action="/products/delete?myId=<%= oneProduct._id %>">
+
+      <form method="post" action="/products/<%= oneProduct._id %>/delete">
         <button> Delete Button (POST) </button>
       </form>
     </li>

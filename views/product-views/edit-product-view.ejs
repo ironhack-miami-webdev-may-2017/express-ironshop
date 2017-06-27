@@ -1,6 +1,6 @@
 <h2> Edit a Product </h2>
 
-<form method="post" action="/products/update?myId=<%= productDetails._id %>">
+<form method="post" action="/products/<%= productDetails._id %>/update">
   <label for="product-name-input"> Product Name </label>
   <input  id="product-name-input" type="text"
       name="productName" value="<%= productDetails.name %>">

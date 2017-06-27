@@ -60,13 +60,13 @@ router.post('/products', (req, res, next) => {
 });
 
 
-router.get('/products/details', (req, res, next) => {
-//    /products/details?myId=595174b1e7890a86da4f5f0b
+router.get('/products/:myId', (req, res, next) => {
+//    /products/595174b1e7890a86da4f5f0b
 //                       |
-//            req.query.myId
+//                 req.params.myId
 
     ProductModel.findById(
-      req.query.myId,            // 1st argument -> the id to find in the DB
+      req.params.myId,           // 1st argument -> the id to find in the DB
       (err, productFromDb) => {  // 2nd argument -> callback
           if (err) {
             // use next() to skip to the ERROR PAGE
@@ -89,14 +89,13 @@ router.get('/products/details', (req, res, next) => {
 
 
 // STEP #1 of form submission for UPDATING a product
-//  (SAME AS DETAILS PAGE BUT DIFFERENT VIEW FILE)
-router.get('/products/edit', (req, res, next) => {
-//    /products/edit?myId=595174b1e7890a86da4f5f0b
+router.get('/products/:myId/edit', (req, res, next) => {
+//    /products/595174b1e7890a86da4f5f0b/edit
 //                       |
-//            req.query.myId
+//                 req.params.myId
 
     ProductModel.findById(
-      req.query.myId,            // 1st argument -> the id to find in the DB
+      req.params.myId,           // 1st argument -> the id to find in the DB
       (err, productFromDb) => {  // 2nd argument -> callback
           if (err) {
             // use next() to skip to the ERROR PAGE
@@ -118,19 +117,19 @@ router.get('/products/edit', (req, res, next) => {
 });
 
 // STEP #2 of form submission for UPDATING a product
-// <form method="post" action="/products/update?myId=283u8eu239eu23e">
-//                |                        |
-//      -----------      -------------------
+// <form method="post" action="/products/283u8eu239eu23e/update">
+//                |                             |
+//      -----------      ------------------------
 //      |                |
-router.post('/products/update', (req, res, next) => {
-//    /products/update?myId=283u8eu239eu23e
-//                       |
-//           req.query.myId
+router.post('/products/:myId/update', (req, res, next) => {
+//    /products/283u8eu239eu23e/update
+//                     |
+//              req.params.myId
 
     ProductModel.findByIdAndUpdate(
-      req.query.myId,            // 1st argument -> id of document to update
+      req.params.myId,            // 1st argument -> id of document to update
 
-      {                          // 2nd argument -> object of fields to update
+      {                           // 2nd argument -> object of fields to update
         name: req.body.productName,
         price: req.body.productPrice,
         imageUrl: req.body.productImageUrl,
@@ -146,7 +145,7 @@ router.post('/products/update', (req, res, next) => {
 
         // If saved successfully, redirect to a URL.
         // (redirect is STEP #3 of form submission for a new product)
-        res.redirect('/products/details?myId=' + productFromDb._id);
+        res.redirect('/products/' + productFromDb._id);
           // you can ONLY redirect to a URL 🌏
 
           // 🚨🚨🚨
@@ -160,9 +159,9 @@ router.post('/products/update', (req, res, next) => {
 
 // Delete from a LINK (GET)
 //   (same code as POST version)
-router.get('/products/delete', (req, res, next) => {
+router.get('/products/:myId/delete', (req, res, next) => {
   ProductModel.findByIdAndRemove(
-    req.query.myId,            // 1st argument -> id of document to remove
+    req.params.myId,           // 1st argument -> id of document to remove
 
     (err, productFromDb) => {  // 2nd argument -> callback
       if (err) {
@@ -180,9 +179,9 @@ router.get('/products/delete', (req, res, next) => {
 
 // Delete from a FORM BUTTON (POST)
 //   (same code as GET version)
-router.post('/products/delete', (req, res, next) => {
+router.post('/products/:myId/delete', (req, res, next) => {
   ProductModel.findByIdAndRemove(
-    req.query.myId,            // 1st argument -> id of document to remove
+    req.params.myId,           // 1st argument -> id of document to remove
 
     (err, productFromDb) => {  // 2nd argument -> callback
       if (err) {
