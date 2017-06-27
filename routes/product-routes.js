@@ -88,7 +88,7 @@ router.get('/products/details', (req, res, next) => {
 });
 
 
-// STEP #1 of form submission for a UPDATING a product
+// STEP #1 of form submission for UPDATING a product
 //  (SAME AS DETAILS PAGE BUT DIFFERENT VIEW FILE)
 router.get('/products/edit', (req, res, next) => {
 //    /products/edit?myId=595174b1e7890a86da4f5f0b
@@ -117,6 +117,44 @@ router.get('/products/edit', (req, res, next) => {
     );
 });
 
+// STEP #2 of form submission for UPDATING a product
+// <form method="post" action="/products/update?myId=283u8eu239eu23e">
+//                |                        |
+//      -----------      -------------------
+//      |                |
+router.post('/products/update', (req, res, next) => {
+//    /products/update?myId=283u8eu239eu23e
+//                       |
+//           req.query.myId
+
+    ProductModel.findByIdAndUpdate(
+      req.query.myId,            // 1st argument -> id of document to update
+
+      {                          // 2nd argument -> object of fields to update
+        name: req.body.productName,
+        price: req.body.productPrice,
+        imageUrl: req.body.productImageUrl,
+        description: req.body.productDescription
+      },
+
+      (err, productFromDb) => {  // 3rd argument -> callback!
+        if (err) {
+          // use next() to skip to the ERROR PAGE
+          next(err);
+          return;
+        }
+
+        // If saved successfully, redirect to a URL.
+        // (redirect is STEP #3 of form submission for a new product)
+        res.redirect('/products/details?myId=' + productFromDb._id);
+          // you can ONLY redirect to a URL 🌏
+
+          // 🚨🚨🚨
+          // If you don't redirect, you can refresh and duplicate your data!
+          // 🚨🚨🚨
+      }
+    );
+});
 
 
 module.exports = router;
