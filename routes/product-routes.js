@@ -157,4 +157,46 @@ router.post('/products/update', (req, res, next) => {
 });
 
 
+
+// Delete from a LINK (GET)
+//   (same code as POST version)
+router.get('/products/delete', (req, res, next) => {
+  ProductModel.findByIdAndRemove(
+    req.query.myId,            // 1st argument -> id of document to remove
+
+    (err, productFromDb) => {  // 2nd argument -> callback
+      if (err) {
+        // use next() to skip to the ERROR PAGE
+        next(err);
+        return;
+      }
+
+      // If removed successfully, redirect to a URL.
+      res.redirect('/products');
+        // you can ONLY redirect to a URL 🌏
+    }
+  );
+});
+
+// Delete from a FORM BUTTON (POST)
+//   (same code as GET version)
+router.post('/products/delete', (req, res, next) => {
+  ProductModel.findByIdAndRemove(
+    req.query.myId,            // 1st argument -> id of document to remove
+
+    (err, productFromDb) => {  // 2nd argument -> callback
+      if (err) {
+        // use next() to skip to the ERROR PAGE
+        next(err);
+        return;
+      }
+
+      // If removed successfully, redirect to a URL.
+      res.redirect('/products');
+        // you can ONLY redirect to a URL 🌏
+    }
+  );
+});
+
+
 module.exports = router;

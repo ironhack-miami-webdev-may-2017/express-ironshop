@@ -16,6 +16,15 @@
         Edit Product
       </a>
       <br>
+                 <!-- req.query.myId -->
+      <a href="/products/delete?myId=<%= oneProduct._id %>">
+        Delete Link (GET)
+      </a>
+      <br>
+                                    <!-- req.query.myId -->
+      <form method="post" action="/products/delete?myId=<%= oneProduct._id %>">
+        <button> Delete Button (POST) </button>
+      </form>
     </li>
   <% }) %>
 </ul>
