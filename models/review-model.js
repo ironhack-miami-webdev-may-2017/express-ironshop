@@ -8,8 +8,8 @@ const reviewSchema = new Schema({
   stars: {
     type: Number,
     default: 5,
-    min: 1,
-    max: 5
+    min: [1, 'Star rating cannot be less than 1'],
+    max: [5, 'Star rating cannot be above 5']
   },
   author: { type: String },
 

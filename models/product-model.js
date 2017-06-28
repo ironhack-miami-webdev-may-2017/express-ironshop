@@ -8,15 +8,18 @@ const Schema = mongoose.Schema;
 const myProductSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    minlength: 3,   // minlength & maxlength are for Strings only
-    maxlength: 255
+    required: [true, 'Please tell us your product name'],
+      // minlength & maxlength are for Strings only
+    minlength: [3, 'Name must be 3 characters or longer'],
+    maxlength: [255, 'Name cannot be longer than 255 characters']
   },
   price: {
     type: Number,
     default: 1,
-    min: 0,    // min & max are for Numbers ONLY
-    max: 1000
+    required: [true, 'Please provide a price'],
+      // min & max are for Numbers ONLY
+    min: [0, 'Price cannot be less than $0'],
+    max: [1000, 'Price cannot be over $1000']
   },
   imageUrl: { type: String, default: '/images/product.gif' },
   description: { type: String },

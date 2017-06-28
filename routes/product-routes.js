@@ -52,7 +52,8 @@ router.post('/products', (req, res, next) => {
         // If there was an error and THERE WERE validation errors
         if (err && theProduct.errors) {
           // Create view variables with the error messages
-          res.locals.validationErrors = theProduct.errors;
+          res.locals.nameValidationError = theProduct.errors.name;
+          res.locals.priceValidationError = theProduct.errors.price;
 
           // And display the form again
           res.render('product-views/new-product-view.ejs');
