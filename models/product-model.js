@@ -6,10 +6,26 @@ const Schema = mongoose.Schema;
 
 
 const myProductSchema = new Schema({
-  name: { type: String },
-  price: { type: Number, default: 1 },
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,   // minlength & maxlength are for Strings only
+    maxlength: 255
+  },
+  price: {
+    type: Number,
+    default: 1,
+    min: 0,    // min & max are for Numbers ONLY
+    max: 1000
+  },
   imageUrl: { type: String, default: '/images/product.gif' },
   description: { type: String },
+
+  // category: {
+  //   type: String,
+  //     // Can only be exactly one of these options
+  //   enum: [ 'Tech', 'Food', 'Apparel', 'Home', 'Footwear' ]
+  // },
 
   // Add a field inside of product documents called "reviews",
   // an array of ReviewModel objects with "content", "stars" and "author" fields.

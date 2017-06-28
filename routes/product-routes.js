@@ -42,9 +42,20 @@ router.post('/products', (req, res, next) => {
     });
 
     theProduct.save((err) => {
-        if (err) {
-          // If there was an error, use next() to skip to the ERROR PAGE.
+        // If there was an error that was NOT a validation error...
+        if (err && theProduct.errors === undefined) {
+          // Use next() to skip to the ERROR PAGE.
           next(err);
+          return;
+        }
+
+        // If there was an error and THERE WERE validation errors
+        if (err && theProduct.errors) {
+          // Create view variables with the error messages
+          res.locals.validationErrors = theProduct.errors;
+
+          // And display the form again
+          res.render('product-views/new-product-view.ejs');
           return;
         }
 
